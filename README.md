@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="GhostView/Main-Logo/GhostView-animated.gif" width="160" height="160" alt="GhostView Logo">
+  <img src="GhostView/Main-Logo/GhostView-animated.webp" width="160" height="160" alt="GhostView Logo">
 </p>
 
 <h1 align="center">GhostView - Anti Drift</h1>
@@ -51,5 +51,5 @@ Since this extension is optimized for manual installation:
 * `content.js` — Injectable script executing the event shield, UI hiding, and subtitle dragging logic.
 * `popup.html` / `popup.js` — Modern, dark-themed popup showing shortcut references and the master switch.
 * `icons/` — Properly scaled icons (16, 48, 128) used by Chrome for the toolbar and extensions manager.
-* `Main-Logo/` — Contains the high-resolution source logos (`GhostView.png`, `icon.png`) and the animated logo (`GhostView-animated.gif`).
+* `Main-Logo/` — Contains the high-resolution source logos (`GhostView.png`, `icon.png`) and the animated logo (`GhostView-animated.webp`).
 * `MAIN-UI-LOGO/` — Contains the layered assets for the animated popup menu.
