@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="GhostView/Main-Logo/GhostView-animated.webp" width="160" height="160" alt="GhostView Logo">
+  <img src="GhostView/Main-Logo/GhostView-animated.webp" width="220" height="220" alt="GhostView Logo">
 </p>
 
 <h1 align="center">GhostView - Anti Drift</h1>
