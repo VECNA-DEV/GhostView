@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostView Help Menu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --surface-color: #111111;
+            --border-color: #222222;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --accent-ghost: #38bdf8;
+            --accent-kill: #ef4444;
+            --accent-global: #a855f7;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            width: 320px;
+            box-sizing: border-box;
+            background-image:
+                radial-gradient(circle at 10% -20%, rgba(56, 189, 248, 0.15), transparent 50%),
+                radial-gradient(circle at 90% 120%, rgba(239, 68, 68, 0.1), transparent 50%);
+        }
+
+        .container {
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 6px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin: 4px 0 0 0;
+        }
+
+        .menu-section {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .key-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s ease;
+        }
+
+        .key-item:last-child {
+            border-bottom: none;
+        }
+
+        .key-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .key-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .key-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .key-desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .kbd-group {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        kbd {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            padding: 4px 8px;
+            box-shadow: 0 2px 0 #000;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+        }
+
+        .separator {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .key-item.ghost:hover kbd {
+            border-color: var(--accent-ghost);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25), 0 2px 0 #000;
+            color: var(--accent-ghost);
+        }
+
+        .key-item.kill:hover kbd {
+            border-color: var(--accent-kill);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.25), 0 2px 0 #000;
+            color: var(--accent-kill);
+        }
+
+        .key-item.global:hover kbd {
+            border-color: var(--accent-global);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.25), 0 2px 0 #000;
+            color: var(--accent-global);
+        }
+
+        .key-item.subtitle:hover kbd {
+            border-color: #2dd4bf;
+            box-shadow: 0 0 12px rgba(45, 212, 191, 0.25), 0 2px 0 #000;
+            color: #2dd4bf;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #555555;
+            margin-top: 4px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+            }
+
+            to {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        /* Interactive subtle tilt effect for the menu card */
+        .menu-section:hover {
+            transform: translateY(-1px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- MASTER TOGGLE --- */
+        .toggle-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .toggle-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background-color: #333;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: #888;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        input:checked+.toggle-slider {
+            background-color: rgba(34, 197, 94, 0.3);
+            box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+        }
+
+        input:checked+.toggle-slider::before {
+            transform: translateX(20px);
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="logo" src="icon.png" alt="GhostView Logo">
+            <h1 class="title">GhostView</h1>
+            <p class="subtitle">Quick Shortcut Guide</p>
+        </div>
+
+        <div class="toggle-section">
+            <span class="toggle-label">Extension Power</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="masterToggle">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="menu-section">
+            <div class="key-item ghost">
+                <div class="key-info">
+                    <span class="key-name">Toggle Ghost Mode</span>
+                    <span class="key-desc">Hides UI & Cursor</span>
+                </div>
+                <div class="kbd-group">
+                    <kbd>Alt</kbd>
+                    <span class="separator">+</span>
+                    <kbd>O</kbd>
+                </div>
+            </div>
+
+            <div class="key-item kill">
+                <div class="key-info">
+                    <span class="key-name">Emergency Reset</span>
+                    <span class="key-desc">The Kill Switch</span>
+                </div>
+                <div class="kbd-group">
+                    <kbd>K</kbd>
+                </div>
+            </div>
+
+            <div class="key-item subtitle">
+                <div class="key-info">
+                    <span class="key-name">Drag Subtitles</span>
+                    <span class="key-desc">Reposition subtitle overlay</span>
+                </div>
+                <div class="kbd-group">
+                    <kbd>Alt</kbd>
+                    <span class="separator">+</span>
+                    <kbd>S</kbd>
+                </div>
+            </div>
+
+            <div class="key-item global">
+                <div class="key-info">
+                    <span class="key-name">Global Toggle</span>
+                    <span class="key-desc">Works globally</span>
+                </div>
+                <div class="kbd-group">
+                    <kbd>Alt</kbd>
+                    <span class="separator">+</span>
+                    <kbd>G</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Extension Disabled</span>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
